@@ -1,0 +1,37 @@
+package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.rest.dto;
+
+import java.time.LocalDate;
+
+public class PessoaRequestDTO {
+
+    private String nomeCompleto;
+    private String cpf;
+    private LocalDate dataNascimento;
+    private String email;
+    private String telefone;
+
+    public PessoaRequestDTO() {}
+
+    public PessoaRequestDTO(String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
+        this.nomeCompleto = nomeCompleto;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+    public String getNomeCompleto() { return nomeCompleto; }
+    public void setNomeCompleto(String nomeCompleto) { this.nomeCompleto = nomeCompleto; }
+
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
+
+    public LocalDate getDataNascimento() { return dataNascimento; }
+    public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getTelefone() { return telefone; }
+    public void setTelefone(String telefone) { this.telefone = telefone; }
+}
