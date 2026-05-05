@@ -1,6 +1,10 @@
 package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_produto")
@@ -8,53 +12,25 @@ public class ProdutoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id; // ✅ minúsculo
 
     private String nome;
-
     private Integer estoque;
-
     private double preco;
-
     private double precoFinal;
 
-    public Integer getId() {
-        return Id;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setId(Integer id) {
-        Id = id;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getNome() {
-        return nome;
-    }
+    public Integer getEstoque() { return estoque; }
+    public void setEstoque(Integer estoque) { this.estoque = estoque; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
 
-    public Integer getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public double getPrecoFinal() {
-        return precoFinal;
-    }
-
-    public void setPrecoFinal(double precoFinal) {
-        this.precoFinal = precoFinal;
-    }
+    public double getPrecoFinal() { return precoFinal; }
+    public void setPrecoFinal(double precoFinal) { this.precoFinal = precoFinal; }
 }

@@ -2,85 +2,134 @@ package com.fag.lucasmartins.arquitetura_software.core.domain.bo;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.UUID;
 
 import com.fag.lucasmartins.arquitetura_software.core.domain.exceptions.DomainException;
 
+
 public class PessoaBO {
 
-    private UUID id;
+    private Integer id;
+
     private String nomeCompleto;
+
     private String cpf;
+
     private LocalDate dataNascimento;
+
     private String email;
+
     private String telefone;
 
-    public PessoaBO(UUID id, String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
+    public PessoaBO() {
+    }
+
+    public PessoaBO(Integer id, String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.telefone = telefone;
-
-        validar();
     }
 
-    private void validar() {
-        validarNomeCompleto();
-        validarCpf();
-        validarDataNascimento();
-        validarEmail();
-        validarTelefone();
+    public static PessoaBO of(String nomeCompleto, String cpf, LocalDate dataNascimento, String email, String telefone) {
+        return new PessoaBO(null, nomeCompleto, cpf, dataNascimento, email, telefone);
     }
 
-    private void validarNomeCompleto() {
-        if (nomeCompleto == null || nomeCompleto.isBlank()) {
+    public void validarCamposObrigatorios() {
+        if (isBlank(nomeCompleto)) {
             throw new DomainException("Nome completo é obrigatório");
         }
-    }
-
-    private void validarCpf() {
-        if (cpf == null || cpf.isBlank()) {
+        if (isBlank(cpf)) {
             throw new DomainException("CPF é obrigatório");
         }
-        if (cpf.length() != 11) {
+        if (dataNascimento == null) {
+            throw new DomainException("Data de nascimento é obrigatória");
+        }
+        if (isBlank(email)) {
+            throw new DomainException("E-mail é obrigatório");
+        }
+        if (isBlank(telefone)) {
+            throw new DomainException("Telefone é obrigatório");
+        }
+        this.cpf = cpf.replaceAll("[^0-9]", "");
+        this.telefone = telefone.replaceAll("[^0-9]", "");
+    }
+
+    public void validarEmail() {
+        if (!email.contains("@")) {
+            throw new DomainException("E-mail inválido");
+        }
+    }
+
+    public void validarTelefone() {
+        if (this.telefone.length() != 11) {
+            throw new DomainException("Telefone deve conter 11 dígitos");
+        }
+    }
+
+    public void validarCpf() {
+        if (this.cpf.length() != 11) {
             throw new DomainException("CPF deve conter 11 dígitos");
         }
     }
 
-    private void validarDataNascimento() {
-        if (dataNascimento == null) {
-            throw new DomainException("Data de nascimento é obrigatória");
-        }
+    public void validarMaioridade() {
         int idade = Period.between(dataNascimento, LocalDate.now()).getYears();
         if (idade < 18) {
             throw new DomainException("Idade mínima de 18 anos não atendida");
         }
     }
 
-    private void validarEmail() {
-        if (email == null || email.isBlank()) {
-            throw new DomainException("E-mail é obrigatório");
-        }
-        if (!email.contains("@")) {
-            throw new DomainException("E-mail inválido");
-        }
+    private boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
     }
 
-    private void validarTelefone() {
-        if (telefone == null || telefone.isBlank()) {
-            throw new DomainException("Telefone é obrigatório");
-        }
-        if (telefone.length() != 11) {
-            throw new DomainException("Telefone deve conter 11 dígitos");
-        }
+    public Integer getId() {
+        return id;
     }
 
-    public UUID getId() { return id; }
-    public String getNomeCompleto() { return nomeCompleto; }
-    public String getCpf() { return cpf; }
-    public LocalDate getDataNascimento() { return dataNascimento; }
-    public String getEmail() { return email; }
-    public String getTelefone() { return telefone; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 }

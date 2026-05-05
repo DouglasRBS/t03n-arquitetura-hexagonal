@@ -4,6 +4,8 @@ import com.fag.lucasmartins.arquitetura_software.core.domain.exceptions.DomainEx
 
 public class ProdutoBO {
 
+    private Integer id; // ✅ adicionar
+
     private String nome;
 
     private Integer estoque;
@@ -20,41 +22,39 @@ public class ProdutoBO {
         }
     }
 
-    public void calcularPrecoFinalPorEstoqueBaixo(){
+    public void calcularPrecoFinalPorEstoqueBaixo() {
         if (estoque != null && estoque >= 50) {
             this.precoFinal = preco - (preco * 0.10);
         }
     }
 
-    public String getNome() {
-        return nome;
+    public void validarEstoqueDisponivel(int quantidade) { // ✅ implementar
+        if (this.estoque == null || this.estoque < quantidade) {
+            throw new DomainException("Estoque insuficiente para o produto: " + this.nome);
+        }
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void diminuirEstoque(Integer quantidade) { // ✅ implementar
+        validarEstoqueDisponivel(quantidade);
+        this.estoque -= quantidade;
     }
 
-    public Integer getEstoque() {
-        return estoque;
+    public void adicionarEstoque(Integer quantidade) { // ✅ implementar
+        this.estoque += quantidade;
     }
 
-    public void setEstoque(Integer estoque) {
-        this.estoque = estoque;
-    }
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public double getPreco() {
-        return preco;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
+    public Integer getEstoque() { return estoque; }
+    public void setEstoque(Integer estoque) { this.estoque = estoque; }
 
-    public double getPrecoFinal() {
-        return precoFinal;
-    }
+    public double getPreco() { return preco; }
+    public void setPreco(double preco) { this.preco = preco; }
 
-    public void setPrecoFinal(double precoFinal) {
-        this.precoFinal = precoFinal;
-    }
+    public double getPrecoFinal() { return precoFinal; }
+    public void setPrecoFinal(double precoFinal) { this.precoFinal = precoFinal; }
 }

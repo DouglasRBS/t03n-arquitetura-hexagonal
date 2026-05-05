@@ -1,19 +1,9 @@
-package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.out.persistence.h2.entity;
+package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.rest.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+public class PessoaDTO {
 
-@Entity
-@Table(name = "tb_pessoa")
-public class PessoaEntity {
-
-    @Id
     private Integer id;
 
     private String nomeCompleto;
@@ -25,9 +15,6 @@ public class PessoaEntity {
     private String email;
 
     private String telefone;
-
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PedidoEntity> pedidos;
 
     public Integer getId() {
         return id;
@@ -75,13 +62,5 @@ public class PessoaEntity {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public List<PedidoEntity> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<PedidoEntity> pedidos) {
-        this.pedidos = pedidos;
     }
 }
